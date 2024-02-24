@@ -3,9 +3,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 function EditEmployee({ employees, setEmployees }) {
+  // Hook to navigate between pages
   const navigate = useNavigate();
+  // Get the userid parameter from the URL
   const { userid } = useParams();
+  // Find the employee object to edit
   const emp = employees.find((employee) => employee.id === userid);
+  // State to manage form data
   const [employeeData, setEmployeeData] = useState({
     id: emp.id,
     fullName: emp.fullName,
@@ -14,6 +18,7 @@ function EditEmployee({ employees, setEmployees }) {
     experience: emp.experience,
   });
 
+  // Function to handle input changes in the form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEmployeeData({
@@ -22,10 +27,11 @@ function EditEmployee({ employees, setEmployees }) {
     });
   };
 
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //find eployee and update it
+    // Find the index of the employee to update
     const employeeIndex = employees.findIndex(
       (employee) => employee.id === emp.id
     );
@@ -52,21 +58,17 @@ function EditEmployee({ employees, setEmployees }) {
     } else {
       console.log("Employee not found");
     }
-    // Reset the form fields
-    setEmployeeData({
-      id: uuidv4(),
-      fullName: "",
-      birthdate: "",
-      department: "",
-      experience: "",
-    });
+    // Display success message
     alert("Employee updated successfully");
+    // Navigate back to home page
     navigate("/");
   };
 
   return (
     <div className="max-w-md mx-auto">
+      {/* Form for editing employee details */}
       <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+        {/* Full Name input field */}
         <div>
           <label
             htmlFor="fullName"
@@ -85,6 +87,7 @@ function EditEmployee({ employees, setEmployees }) {
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
         </div>
+        {/* Birthdate input field */}
         <div>
           <label
             htmlFor="birthdate"
@@ -102,6 +105,7 @@ function EditEmployee({ employees, setEmployees }) {
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
         </div>
+        {/* Department input field */}
         <div>
           <label
             htmlFor="department"
@@ -118,6 +122,7 @@ function EditEmployee({ employees, setEmployees }) {
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
         </div>
+        {/* Experience input field */}
         <div>
           <label
             htmlFor="experience"
@@ -135,6 +140,7 @@ function EditEmployee({ employees, setEmployees }) {
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
         </div>
+        {/* Submit button */}
         <div>
           <button
             type="submit"

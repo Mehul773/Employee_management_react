@@ -11,24 +11,29 @@ function App() {
   const [employees, setEmployees] = useState([]);
   return (
     <>
+      {/* Header component */}
       <Header />
       <Routes>
+        {/* Route for the home page */}
         <Route
           path="/"
           element={<Home employees={employees} setEmployees={setEmployees} />}
         />
+        {/* Route for editing employee */}
         <Route
           path="/edit/:userid"
           element={
             <EditEmployee employees={employees} setEmployees={setEmployees} />
           }
         />
+        {/* Route for adding new employee */}
         <Route
           path="/add"
           element={
             <AddEmployee employees={employees} setEmployees={setEmployees} />
           }
         />
+        {/* Route for handling unknown paths */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

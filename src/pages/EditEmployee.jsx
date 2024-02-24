@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
-function AddEmployee({ employees, setEmployees }) {
+function EditEmployee({ employees, setEmployees }) {
+  const navigate = useNavigate();
+  const { userid } = useParams();
+  const emp = employees.find((employee) => employee.id === userid);
   const [employeeData, setEmployeeData] = useState({
-    id: uuidv4(),
-    fullName: "",
-    birthdate: "",
-    department: "",
-    experience: "",
+    id: emp.id,
+    fullName: emp.fullName,
+    birthdate: emp.birthdate,
+    department: emp.department,
+    experience: emp.experience,
   });
 
   const handleInputChange = (e) => {
@@ -21,7 +25,33 @@ function AddEmployee({ employees, setEmployees }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setEmployees([...employees, employeeData]);
+    //find eployee and update it
+    const employeeIndex = employees.findIndex(
+      (employee) => employee.id === emp.id
+    );
+    if (employeeIndex !== -1) {
+      // Create a copy of the employees array
+      const updatedEmployees = [...employees];
+
+      // Update the employee object with new data
+      updatedEmployees[employeeIndex] = {
+        ...updatedEmployees[employeeIndex],
+        ...employeeData,
+      };
+
+      // Set the state with the updated array
+      setEmployees(updatedEmployees);
+      // Reset the form fields
+      setEmployeeData({
+        id: uuidv4(),
+        fullName: "",
+        birthdate: "",
+        department: "",
+        experience: "",
+      });
+    } else {
+      console.log("Employee not found");
+    }
     // Reset the form fields
     setEmployeeData({
       id: uuidv4(),
@@ -30,7 +60,10 @@ function AddEmployee({ employees, setEmployees }) {
       department: "",
       experience: "",
     });
+    alert("Employee updated successfully");
+    navigate("/");
   };
+
   return (
     <div className="max-w-md mx-auto">
       <form onSubmit={handleSubmit} className="mt-8 space-y-6">
@@ -115,4 +148,4 @@ function AddEmployee({ employees, setEmployees }) {
   );
 }
 
-export default AddEmployee;
+export default EditEmployee;

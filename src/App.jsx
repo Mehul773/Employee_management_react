@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import AddEmployee from "./components/AddEmployee";
-import EditEmployee from "./components/EditEmployee";
-import Home from "./components/Home";
-import NotFound from "./components/NotFound";
+import AddEmployee from "./pages/AddEmployee";
+import EditEmployee from "./pages/EditEmployee";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 import { useState } from "react";
 
@@ -13,7 +13,10 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Home employees={employees} />} />
+        <Route
+          path="/"
+          element={<Home employees={employees} setEmployees={setEmployees} />}
+        />
         <Route
           path="/edit/:userid"
           element={

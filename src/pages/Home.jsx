@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Home({ employees }) {
+function Home({ employees, setEmployees }) {
+  function handleDelete(id) {
+    const ans = confirm("Do you want to proceed?");
+    if (ans) {
+      const temp = employees.filter((emp) => emp.id != id);
+      setEmployees(temp);
+    }
+  }
   return (
     <>
       <div className="flex justify-center mt-2">
@@ -17,7 +24,7 @@ function Home({ employees }) {
           <thead className="bg-gray-50">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ID
+                #
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Full Name
@@ -58,7 +65,10 @@ function Home({ employees }) {
                       Edit
                     </div>
                   </Link>
-                  <button className="text-red-600 hover:text-red-900">
+                  <button
+                    className="text-red-600 hover:text-red-900"
+                    onClick={() => handleDelete(employee.id)}
+                  >
                     Delete
                   </button>
                 </td>

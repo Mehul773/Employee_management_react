@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home employees={employees} />} />
         <Route
-          path="/edit/:id"
+          path="/edit/:userid"
           element={
             <EditEmployee employees={employees} setEmployees={setEmployees} />
           }

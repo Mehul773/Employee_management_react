@@ -52,10 +52,12 @@ function Home({ employees }) {
                 <td className="px-6 py-4 whitespace-nowrap">
                   {employee.experience}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button className="text-blue-600 hover:text-blue-900 mr-2">
-                    Edit
-                  </button>
+                <td className="px-6 py-4 whitespace-nowrap flex">
+                  <Link to={`/edit/${employee.id}`}>
+                    <div className="text-blue-600 hover:text-blue-900 mr-2">
+                      Edit
+                    </div>
+                  </Link>
                   <button className="text-red-600 hover:text-red-900">
                     Delete
                   </button>

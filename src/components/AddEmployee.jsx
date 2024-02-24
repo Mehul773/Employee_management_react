@@ -30,8 +30,6 @@ function AddEmployee({ employees, setEmployees }) {
       department: "",
       experience: "",
     });
-
-    console.log(employees);
   };
   return (
     <div className="max-w-md mx-auto">
